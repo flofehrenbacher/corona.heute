@@ -10,6 +10,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.0.12",
     "@chakra-ui/react": "^1.5.2",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
