@@ -1,16 +1,18 @@
 import { CloseIcon, StarIcon } from '@chakra-ui/icons'
-import { Box, Text } from '@chakra-ui/layout'
+import { Box, FlexProps, Text } from '@chakra-ui/layout'
 import { Flex, IconButton, theme } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'
 import { useMyDistricts } from 'hooks/use-my-districts'
 import React from 'react'
 
-const ratio = 3 / 4
 export const districtCardWidth = 280
-export const districtCardHeight = Math.ceil(districtCardWidth * ratio)
+export const districtCardHeight = districtCardWidth
 
-export function DistrictCard({ ags, ...props }: { ags: string }) {
+interface DistrictCardProps extends FlexProps {
+  ags: string
+}
+export function DistrictCard({ ags, ...props }: DistrictCardProps) {
   const { districts } = useCurrentRKIData()
   const { myDistricts, addDistrict, removeDistrict } = useMyDistricts()
 
@@ -25,13 +27,13 @@ export function DistrictCard({ ags, ...props }: { ags: string }) {
       h={districtCardHeight}
       align="start"
       p="4"
+      {...props}
     >
       <Box w="80%">
-        <Text fontSize="larger" whiteSpace="nowrap" textOverflow="ellipsis" css={styles.title}>
-          {district.county}
-        </Text>
-        <Text>7-Tage-Inzidenz: {Math.round(district.weekIncidence)}</Text>
+        <Text fontSize="larger">{district.county}</Text>
+        <Text mt="2">Bundesland: {district.state}</Text>
         <Text>Einwohner: {district.population}</Text>
+        <Text mt="2">7-Tage-Inzidenz: {Math.round(district.weekIncidence)}</Text>
         <Text>Neue Fälle: {district.delta.cases}</Text>
       </Box>
       <IconButton
@@ -39,7 +41,12 @@ export function DistrictCard({ ags, ...props }: { ags: string }) {
         colorScheme="gray"
         aria-label="Search database"
         onClick={() => (myDistricts.includes(ags) ? removeDistrict(ags) : addDistrict(ags))}
-        icon={myDistricts.includes(ags) ? <CloseIcon /> : <StarIcon />}
+        icon={
+          <StarIcon
+            color={myDistricts.includes(ags) ? undefined : 'white'}
+            stroke={myDistricts.includes(ags) ? undefined : 'blackAlpha.600'}
+          />
+        }
       />
     </Flex>
   )
@@ -51,9 +58,5 @@ const styles = {
     border-radius: ${theme.radii['2xl']};
     position: relative;
     overflow: hidden;
-  `,
-  title: css`
-    overflow: hidden;
-    text-overflow: ellipsis;
   `,
 }

@@ -1,10 +1,11 @@
 import { Box, Center, Heading, Text } from '@chakra-ui/layout'
 import { Input, theme } from '@chakra-ui/react'
 import { css } from '@emotion/react'
-import { DistrictCard } from 'components/district-card'
+import { DistrictSwiper } from 'components/district-swiper'
 import { debounce } from 'debounce'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'
 import React from 'react'
+import { mobileViewportGap } from 'style/tokens'
 
 export default function HomePage() {
   const { districts } = useCurrentRKIData()
@@ -29,30 +30,20 @@ export default function HomePage() {
   }
 
   return (
-    <Box p="4">
-      <Heading as="h2">Suche</Heading>
-      <Input mt="4" mb="4" placeholder="Region suchen" onChange={debounce(handleChange, 300)} />
+    <Box>
+      <Heading p={mobileViewportGap} as="h2">
+        Suche
+      </Heading>
+      <Box px={mobileViewportGap}>
+        <Input placeholder="Region suchen" onChange={debounce(handleChange, 300)} />
+      </Box>
       {showNoResultsFound ? (
         <Center>
           <Text>Keine Suchergebnisse gefunden</Text>
         </Center>
       ) : (
-        <Box css={styles.searchResults}>
-          {searchResults.map((district) => {
-            return <DistrictCard key={district.ags} css={{ margin: '0 auto' }} ags={district.ags} />
-          })}
-        </Box>
+        <DistrictSwiper districts={searchResults.map((d) => d.ags)} />
       )}
     </Box>
   )
-}
-
-const styles = {
-  searchResults: css`
-    > * {
-      :not(:first-of-type) {
-        margin-top: ${theme.space[4]};
-      }
-    }
-  `,
 }
