@@ -31,7 +31,7 @@ export default function HomePage() {
       <Heading p={mobileViewportGap} as="h2" textAlign="center" fontSize="2xl">
         Verschieben
       </Heading>
-      <Box px={mobileViewportGap}>
+      <Box px={mobileViewportGap} mb="10">
         <MoveDistricts />
       </Box>
     </Box>

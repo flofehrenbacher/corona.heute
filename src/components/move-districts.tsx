@@ -31,7 +31,7 @@ export function MoveDistricts() {
                     css={styles.draggableDistrict}
                   >
                     <DragHandleIcon mr="3" />
-                    <span>{districts[district].name}</span>
+                    <span>{districts[district].county}</span>
                   </li>
                 )}
               </Draggable>
