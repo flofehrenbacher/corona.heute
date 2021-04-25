@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { mediaQuery } from 'style/media-query'
 import { mobileViewportGap } from 'style/tokens'
+import Head from 'next/head'
 
 export default function HomePage() {
   const { myDistricts } = useMyDistricts()
@@ -19,6 +20,9 @@ export default function HomePage() {
 
   return (
     <Box>
+      <Head>
+        <title>Corona heute - Zahlen</title>
+      </Head>
       <Heading p={mobileViewportGap} as="h2" css={styles.title}>
         Meine Zahlen
       </Heading>

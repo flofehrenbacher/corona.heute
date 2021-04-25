@@ -5,6 +5,7 @@ import { debounce } from 'debounce'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'
 import React from 'react'
 import { mobileViewportGap } from 'style/tokens'
+import Head from 'next/head'
 
 export default function HomePage() {
   const { districts } = useCurrentRKIData()
@@ -30,6 +31,9 @@ export default function HomePage() {
 
   return (
     <Box>
+      <Head>
+        <title>Corona heute - Suche</title>
+      </Head>
       <Heading p={mobileViewportGap} as="h2">
         Suche
       </Heading>
