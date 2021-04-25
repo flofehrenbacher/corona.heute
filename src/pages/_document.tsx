@@ -12,7 +12,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="description" content="Corona heute" />
           <meta name="keywords" content="Corona, Zahlen" />
           <link rel="manifest" href="/manifest.json" />

@@ -29,7 +29,7 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
       p="4"
       {...props}
     >
-      <Box w="80%">
+      <Box w="90%">
         <Text fontSize="larger">{district.county}</Text>
         <Text mt="2">Bundesland: {district.state}</Text>
         <Text mb="2">Einwohner: {district.population}</Text>
@@ -80,22 +80,23 @@ export function CompareLastWeek({ current, lastWeek, title, ...props }: CompareL
 
   const CompareLastWeek = lastWeek ? (
     <>
-      ({sinceLastWeek}{' '}
-      {sinceLastWeek === 0 ? (
-        <ArrowForwardIcon />
-      ) : sinceLastWeek > 0 ? (
-        <ArrowUpIcon color="red.600" />
-      ) : (
-        <ArrowDownIcon color="green.600" />
-      )}
-      )<Text fontSize="small">Vergleich zu {new Date(lastWeek.date).toLocaleDateString('de')}</Text>
+      <Text fontSize="smaller">
+        {sinceLastWeek}{' '}
+        {sinceLastWeek === 0 ? (
+          <ArrowForwardIcon />
+        ) : sinceLastWeek > 0 ? (
+          <ArrowUpIcon color="red.600" />
+        ) : (
+          <ArrowDownIcon color="green.600" />
+        )}{' '}
+        (am {new Date(lastWeek.date).toLocaleDateString('de')} waren es {lastWeek.value})
+      </Text>
     </>
   ) : null
 
   return (
     <Text {...props}>
       {title}: {current}
-      <br />
       {CompareLastWeek}
     </Text>
   )
