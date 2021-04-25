@@ -1,6 +1,5 @@
 import { Box, Center, Heading, Text } from '@chakra-ui/layout'
-import { Input, theme } from '@chakra-ui/react'
-import { css } from '@emotion/react'
+import { Input } from '@chakra-ui/react'
 import { DistrictSwiper } from 'components/district-swiper'
 import { debounce } from 'debounce'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'
@@ -35,7 +34,7 @@ export default function HomePage() {
         Suche
       </Heading>
       <Box px={mobileViewportGap}>
-        <Input placeholder="Region suchen" onChange={debounce(handleChange, 300)} />
+        <Input placeholder="Landkreis/Stadtkreis suchen" onChange={debounce(handleChange, 300)} />
       </Box>
       {showNoResultsFound ? (
         <Center>

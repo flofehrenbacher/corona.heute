@@ -14,7 +14,7 @@ export function DistrictSwiper({ districts, ...props }: DistrictSwiperProps) {
     <Box mt="5" css={styles.swipeWrapper} {...props}>
       <Box css={styles.list}>
         {districts.map((ags) => {
-          return <DistrictCard ags={ags} flexShrink={0} />
+          return <DistrictCard key={ags} ags={ags} flexShrink={0} />
         })}
       </Box>
     </Box>
@@ -58,6 +58,7 @@ const styles = {
 
     ${mediaQuery.md} {
       flex-wrap: wrap;
+      justify-content: center;
 
       > *:first-of-type {
         margin-left: 0;

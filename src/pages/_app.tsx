@@ -7,14 +7,24 @@ import { AppComponent, AppProps } from 'next/dist/next-server/lib/router/router'
 import * as React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { mediaQueryValues } from 'style/media-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 60000,
+      refetchOnWindowFocus: false,
+      retryDelay: 5000,
+    },
+  },
+})
 
 export default function MyApp(props: { Component: AppComponent; pageProps: AppProps }) {
   return (
     <ChakraProvider>
       <QueryClientProvider client={queryClient}>
         <MainContent {...props} />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ChakraProvider>
   )
