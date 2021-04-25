@@ -2,7 +2,7 @@ import { ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon, StarIcon } from '@chakra-
 import { Box, FlexProps, Text, TextProps } from '@chakra-ui/layout'
 import { Flex, IconButton, theme } from '@chakra-ui/react'
 import { css } from '@emotion/react'
-import { useCurrentRKIData } from 'hooks/use-current-rki-data'
+import { HistoryDistrict, useCurrentRKIData } from 'hooks/use-current-rki-data'
 import { useMyDistricts } from 'hooks/use-my-districts'
 import React from 'react'
 
@@ -36,13 +36,13 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
         <CompareLastWeek
           title="7-Tage-Inzidenz"
           current={district.weekIncidence}
-          yesterday={district.weekIncidenceYesterday}
+          lastWeek={district.weekIncidenceHistory}
         />
         <CompareLastWeek
           mt="1"
           title="Neue Fälle"
           current={district.delta.cases}
-          yesterday={district.casesYesterday}
+          lastWeek={district.casesHistory}
         />
       </Box>
       <IconButton
@@ -73,22 +73,22 @@ const styles = {
 interface CompareLastWeekProps extends TextProps {
   title: string
   current: number
-  yesterday?: number
+  lastWeek?: HistoryDistrict['casesHistory'] | HistoryDistrict['weekIncidenceHistory']
 }
-export function CompareLastWeek({ current, yesterday, title, ...props }: CompareLastWeekProps) {
-  const sinceYesterday = yesterday ? current - yesterday : NaN
+export function CompareLastWeek({ current, lastWeek, title, ...props }: CompareLastWeekProps) {
+  const sinceLastWeek = lastWeek ? current - lastWeek.value : NaN
 
-  const CompareLastWeek = yesterday ? (
+  const CompareLastWeek = lastWeek ? (
     <>
-      ({sinceYesterday}{' '}
-      {sinceYesterday === 0 ? (
+      ({sinceLastWeek}{' '}
+      {sinceLastWeek === 0 ? (
         <ArrowForwardIcon />
-      ) : sinceYesterday > 0 ? (
+      ) : sinceLastWeek > 0 ? (
         <ArrowUpIcon color="red.600" />
       ) : (
         <ArrowDownIcon color="green.600" />
       )}
-      )<Text fontSize="small">Vergleich zu letzter Woche</Text>
+      )<Text fontSize="small">Vergleich zu {new Date(lastWeek.date).toLocaleDateString('de')}</Text>
     </>
   ) : null
 
