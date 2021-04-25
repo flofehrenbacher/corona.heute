@@ -58,7 +58,6 @@ const styles = {
 
     ${mediaQuery.md} {
       flex-wrap: wrap;
-      justify-content: center;
 
       > *:first-of-type {
         margin-left: 0;

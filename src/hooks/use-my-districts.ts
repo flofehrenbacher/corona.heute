@@ -1,6 +1,6 @@
 import { useToast } from '@chakra-ui/toast'
 import React from 'react'
-import useLocalStorageState, { createLocalStorageStateHook } from 'use-local-storage-state'
+import { createLocalStorageStateHook } from 'use-local-storage-state'
 import { AGS } from './use-current-rki-data'
 
 const myDistrictsKey = 'my-districts'
@@ -30,5 +30,5 @@ export function useMyDistricts() {
     })
   }, [])
 
-  return { myDistricts: myDistricts ?? [], addDistrict, removeDistrict }
+  return { myDistricts: myDistricts ?? [], addDistrict, removeDistrict, setMyDistricts }
 }

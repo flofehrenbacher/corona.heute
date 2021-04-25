@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { isDev } from 'config'
+import { developmentData } from 'development-data'
 import { useQuery } from 'react-query'
 
 export function useCurrentRKIData() {
@@ -10,10 +12,12 @@ export function useCurrentRKIData() {
   return { isLoading, lastUpdate: data?.lastUpdate, districts: data?.districts ?? {} }
 }
 
-async function getCurrentRKIData(): Promise<{
+export async function getCurrentRKIData(): Promise<{
   lastUpdate: string
   districts: Record<AGS, HistoryDistrict>
 } | null> {
+  if (isDev) return developmentData
+
   const result = await axios.get<{ meta: Meta; data: Record<AGS, District> }>(
     'https://api.corona-zahlen.org/districts',
   )
@@ -98,13 +102,14 @@ interface District {
   state: string
   population: number
   deaths: number
+  cases: number
   casesPerWeek: number
   deathsPerWeek: number
   stateAbbreviation: string
   recovered: number
   weekIncidence: number
   casesPer100k: number
-  delta: { cases: number; deaths: number; revocered: number }
+  delta: { cases: number; deaths: number; recovered: number }
 }
 
 export interface HistoryDistrict extends District {

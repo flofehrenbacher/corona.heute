@@ -7,6 +7,7 @@ import React from 'react'
 import { mediaQuery } from 'style/media-query'
 import { mobileViewportGap } from 'style/tokens'
 import Head from 'next/head'
+import { MoveDistricts } from 'components/move-districts'
 
 export default function HomePage() {
   const { myDistricts } = useMyDistricts()
@@ -23,18 +24,16 @@ export default function HomePage() {
       <Head>
         <title>Corona heute - Zahlen</title>
       </Head>
-      <Heading p={mobileViewportGap} as="h2" css={styles.title}>
+      <Heading p={mobileViewportGap} as="h2" textAlign="center">
         Meine Zahlen
       </Heading>
       <DistrictSwiper districts={myDistricts} />
+      <Heading p={mobileViewportGap} as="h2" textAlign="center" fontSize="2xl">
+        Verschieben
+      </Heading>
+      <Box px={mobileViewportGap}>
+        <MoveDistricts />
+      </Box>
     </Box>
   )
-}
-
-const styles = {
-  title: css`
-    ${mediaQuery.md} {
-      text-align: center;
-    }
-  `,
 }
