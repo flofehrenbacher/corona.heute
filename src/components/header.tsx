@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 export function Header(props: unknown) {
-  const { isLoading, lastUpdate } = useCurrentRKIData()
+  const { lastUpdate } = useCurrentRKIData()
   const { pathname } = useRouter()
 
   return (
@@ -43,7 +43,7 @@ export function Header(props: unknown) {
       </header>
       <aside css={styles.aside}>
         <Text color="whiteAlpha.700">
-          Daten zuletzt aktualisiert am {isLoading ? <Spinner /> : formatLastUpdate(lastUpdate)}
+          Daten zuletzt aktualisiert am {lastUpdate ? formatLastUpdate(lastUpdate) : null}
         </Text>
       </aside>
     </>

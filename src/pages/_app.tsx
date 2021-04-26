@@ -1,4 +1,4 @@
-import { ChakraProvider, theme } from '@chakra-ui/react'
+import { Center, ChakraProvider, Spinner, theme } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import { DataReference } from 'components/data-reference'
 import { Header } from 'components/header'
@@ -36,7 +36,15 @@ function MainContent({ Component, pageProps }: { Component: AppComponent; pagePr
   return (
     <div>
       <Header />
-      <main css={styles.main}>{isLoading ? null : <Component {...pageProps} />}</main>
+      <main css={styles.main}>
+        {isLoading ? (
+          <Center h="100vh">
+            <Spinner />
+          </Center>
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </main>
       <DataReference />
     </div>
   )

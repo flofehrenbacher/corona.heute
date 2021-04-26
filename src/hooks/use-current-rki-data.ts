@@ -53,7 +53,7 @@ function mergeDistrictResults(
     const caseHistory = casesHistories[d]
     const weekIncidenceHistory = weekIncidenceHistories[d]
 
-    if (caseHistory?.history.length > 6 && weekIncidenceHistory?.history.length > 6) {
+    if (caseHistory?.history.length > 0 && weekIncidenceHistory?.history.length > 0) {
       const updated: HistoryDistrict = {
         ...districts[d],
         weekIncidence: Math.round(districts[d].weekIncidence),
