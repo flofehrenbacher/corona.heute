@@ -1,10 +1,11 @@
-import { ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon, StarIcon } from '@chakra-ui/icons'
-import { Box, FlexProps, Text, TextProps } from '@chakra-ui/layout'
+import { ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon, InfoIcon, StarIcon } from '@chakra-ui/icons'
+import { Box, FlexProps, Text, TextProps, VStack } from '@chakra-ui/layout'
 import { Flex, IconButton, theme } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import { HistoryDistrict, useCurrentRKIData } from 'hooks/use-current-rki-data'
 import { useMyDistricts } from 'hooks/use-my-districts'
 import React from 'react'
+import { WeekChart } from './week-chart'
 
 export const districtCardWidth = 300
 export const districtCardHeight = districtCardWidth
@@ -13,10 +14,23 @@ interface DistrictCardProps extends FlexProps {
   ags: string
 }
 export function DistrictCard({ ags, ...props }: DistrictCardProps) {
-  const { districts } = useCurrentRKIData()
+  const { districts, lastUpdate } = useCurrentRKIData()
   const { myDistricts, addDistrict, removeDistrict } = useMyDistricts()
 
   const district = districts[ags]
+
+  const [view, setView] = React.useState<'chart' | 'overview'>('overview')
+  function toggleView() {
+    setView((prev) => (prev === 'chart' ? 'overview' : 'chart'))
+  }
+
+  const weekIncidenceLastWeek =
+    district.weekIncidenceHistory && district.weekIncidenceHistory.length > 0
+      ? district.weekIncidenceHistory[0]
+      : undefined
+
+  const casesLastWeek =
+    district.casesHistory && district.casesHistory.length > 0 ? district.casesHistory[0] : undefined
 
   if (!district) return <Box>Unbekannter Allgemeiner Gemeindeschlüssel: {ags}</Box>
   return (
@@ -31,32 +45,64 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
     >
       <Box w="90%">
         <Text fontSize="larger">{district.county}</Text>
-        <Text mt="2">Bundesland: {district.state}</Text>
-        <Text mb="2">Einwohner: {district.population}</Text>
-        <CompareLastWeek
-          title="7-Tage-Inzidenz"
-          current={district.weekIncidence}
-          lastWeek={district.weekIncidenceHistory}
-        />
-        <CompareLastWeek
-          mt="1"
-          title="Neue Fälle"
-          current={district.delta.cases}
-          lastWeek={district.casesHistory}
-        />
-      </Box>
-      <IconButton
-        as="a"
-        colorScheme="gray"
-        aria-label="Search database"
-        onClick={() => (myDistricts.includes(ags) ? removeDistrict(ags) : addDistrict(ags))}
-        icon={
-          <StarIcon
-            color={myDistricts.includes(ags) ? undefined : 'white'}
-            stroke={myDistricts.includes(ags) ? undefined : 'blackAlpha.600'}
+        {view === 'overview' ? (
+          <>
+            <Text mt="2">Bundesland: {district.state}</Text>
+            <Text mb="2">Einwohner: {district.population}</Text>
+            <CompareLastWeek
+              title="7-Tage-Inzidenz"
+              current={district.weekIncidence}
+              lastWeek={
+                weekIncidenceLastWeek
+                  ? { value: weekIncidenceLastWeek.weekIncidence, date: weekIncidenceLastWeek.date }
+                  : undefined
+              }
+            />
+            <CompareLastWeek
+              mt="1"
+              title="Neue Fälle"
+              current={district.delta.cases}
+              lastWeek={
+                casesLastWeek ? { value: casesLastWeek.cases, date: casesLastWeek.date } : undefined
+              }
+            />
+          </>
+        ) : (
+          <WeekChart
+            width={200}
+            height={80}
+            casesHistory={[
+              ...(district.casesHistory ?? []),
+              { cases: district.delta.cases, date: lastUpdate! },
+            ]}
+            weekIncidenceHistory={[
+              ...(district.weekIncidenceHistory ?? []),
+              { weekIncidence: district.weekIncidence, date: lastUpdate! },
+            ]}
           />
-        }
-      />
+        )}
+      </Box>
+      <VStack>
+        <IconButton
+          as="a"
+          colorScheme="gray"
+          aria-label="Search database"
+          onClick={() => (myDistricts.includes(ags) ? removeDistrict(ags) : addDistrict(ags))}
+          icon={
+            <StarIcon
+              color={myDistricts.includes(ags) ? undefined : 'white'}
+              stroke={myDistricts.includes(ags) ? undefined : 'blackAlpha.600'}
+            />
+          }
+        />
+        <IconButton
+          as="a"
+          colorScheme="gray"
+          aria-label="Search database"
+          onClick={toggleView}
+          icon={<InfoIcon />}
+        />
+      </VStack>
     </Flex>
   )
 }
@@ -73,7 +119,7 @@ const styles = {
 interface CompareLastWeekProps extends TextProps {
   title: string
   current: number
-  lastWeek?: HistoryDistrict['casesHistory'] | HistoryDistrict['weekIncidenceHistory']
+  lastWeek?: { value: number; date: string }
 }
 export function CompareLastWeek({ current, lastWeek, title, ...props }: CompareLastWeekProps) {
   const sinceLastWeek = lastWeek ? current - lastWeek.value : NaN

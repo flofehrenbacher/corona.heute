@@ -57,11 +57,11 @@ function mergeDistrictResults(
       const updated: HistoryDistrict = {
         ...districts[d],
         weekIncidence: Math.round(districts[d].weekIncidence),
-        casesHistory: { value: caseHistory.history[0].cases, date: caseHistory.history[0].date },
-        weekIncidenceHistory: {
-          value: Math.round(weekIncidenceHistory.history[0].weekIncidence),
-          date: weekIncidenceHistory.history[0].date,
-        },
+        casesHistory: caseHistory.history,
+        weekIncidenceHistory: weekIncidenceHistory.history.map(({ date, weekIncidence }) => ({
+          date,
+          weekIncidence: Math.round(weekIncidence),
+        })),
       }
       return updated
     } else {
@@ -113,6 +113,12 @@ interface District {
 }
 
 export interface HistoryDistrict extends District {
-  casesHistory?: { value: number; date: string }
-  weekIncidenceHistory?: { value: number; date: string }
+  casesHistory?: {
+    cases: number
+    date: string
+  }[]
+  weekIncidenceHistory?: {
+    weekIncidence: number
+    date: string
+  }[]
 }

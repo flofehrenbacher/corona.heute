@@ -57,6 +57,9 @@ const styles = {
     align-items: center;
     background-color: ${theme.colors.blue[600]};
     padding: ${theme.space[3]};
+    position: sticky;
+    top: 0;
+    z-index: 1;
   `,
   aside: css`
     background-color: ${theme.colors.blue[400]};
