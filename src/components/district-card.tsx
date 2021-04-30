@@ -78,14 +78,8 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
           <WeekChart
             width={200}
             height={80}
-            casesHistory={[
-              ...(district.casesHistory ?? []),
-              { cases: district.delta.cases, date: lastUpdate! },
-            ]}
-            weekIncidenceHistory={[
-              ...(district.weekIncidenceHistory ?? []),
-              { weekIncidence: district.weekIncidence, date: lastUpdate! },
-            ]}
+            casesHistory={[...(district.casesHistory ?? [])]}
+            weekIncidenceHistory={[...(district.weekIncidenceHistory ?? [])]}
           />
         )}
       </Box>
