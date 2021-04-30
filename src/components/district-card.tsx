@@ -1,8 +1,15 @@
-import { ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon, InfoIcon, StarIcon } from '@chakra-ui/icons'
+import {
+  ArrowDownIcon,
+  ArrowForwardIcon,
+  ArrowUpIcon,
+  InfoIcon,
+  StarIcon,
+  TimeIcon,
+} from '@chakra-ui/icons'
 import { Box, FlexProps, Text, TextProps, VStack } from '@chakra-ui/layout'
 import { Flex, IconButton, theme } from '@chakra-ui/react'
 import { css } from '@emotion/react'
-import { HistoryDistrict, useCurrentRKIData } from 'hooks/use-current-rki-data'
+import { useCurrentRKIData } from 'hooks/use-current-rki-data'
 import { useMyDistricts } from 'hooks/use-my-districts'
 import React from 'react'
 import { WeekChart } from './week-chart'
@@ -100,7 +107,7 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
           colorScheme="gray"
           aria-label="Search database"
           onClick={toggleView}
-          icon={<InfoIcon />}
+          icon={view === 'chart' ? <InfoIcon /> : <TimeIcon />}
         />
       </VStack>
     </Flex>

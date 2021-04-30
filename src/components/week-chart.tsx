@@ -26,11 +26,12 @@ export function WeekChart({ width, height, casesHistory, weekIncidenceHistory }:
     <div>
       <Heading fontSize="small">Verlauf (inklusive heute)</Heading>
       <Heading fontSize="smaller" my={2}>
-        7-Tage-Inzidenz
+        7-Tage-Inzidenz (rot = 100)
       </Heading>
       <svg width={width} height={height}>
         {weekIncidenceHistory.map((d, i) => (
           <Tooltip
+            placement="top"
             label={`7-Tage-Inzidenz am ${new Date(d.date).toLocaleDateString('de')}: ${
               d.weekIncidence
             }`}
@@ -45,13 +46,24 @@ export function WeekChart({ width, height, casesHistory, weekIncidenceHistory }:
             />
           </Tooltip>
         ))}
+        <line
+          x1={0}
+          x2={width}
+          y1={yScaleWeekIncidence(100)}
+          y2={yScaleWeekIncidence(100)}
+          stroke={theme.colors.red[600]}
+          strokeWidth={2}
+        />
       </svg>
       <Heading fontSize="smaller" my={2}>
         Neue Fälle
       </Heading>
       <svg width={width} height={height}>
         {casesHistory.map((d, i) => (
-          <Tooltip label={`Neue Fälle am ${new Date(d.date).toLocaleDateString('de')}: ${d.cases}`}>
+          <Tooltip
+            placement="top"
+            label={`Neue Fälle am ${new Date(d.date).toLocaleDateString('de')}: ${d.cases}`}
+          >
             <rect
               fill={theme.colors.purple[700]}
               key={i}

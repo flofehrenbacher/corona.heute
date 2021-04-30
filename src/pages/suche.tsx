@@ -7,7 +7,7 @@ import React from 'react'
 import { mobileViewportGap } from 'style/tokens'
 import Head from 'next/head'
 
-export default function HomePage() {
+export default function SearchPage() {
   const { districts } = useCurrentRKIData()
 
   const [searchTerm, setSearchTerm] = React.useState('')

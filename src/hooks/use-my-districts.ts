@@ -21,13 +21,17 @@ export function useMyDistricts() {
   }, [])
 
   const removeDistrict = React.useCallback((district: AGS) => {
-    setMyDistricts((prev) => prev?.filter((d) => d !== district))
-    toast({
-      title: 'Erfolgreich entfernt',
-      status: 'info',
-      duration: 3000,
-      isClosable: true,
-    })
+    const confirmation = confirm('Wirklich entfernen?')
+
+    if (confirmation) {
+      setMyDistricts((prev) => prev?.filter((d) => d !== district))
+      toast({
+        title: 'Erfolgreich entfernt',
+        status: 'info',
+        duration: 3000,
+        isClosable: true,
+      })
+    }
   }, [])
 
   return { myDistricts: myDistricts ?? [], addDistrict, removeDistrict, setMyDistricts }

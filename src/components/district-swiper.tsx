@@ -12,7 +12,7 @@ interface DistrictSwiperProps {
 export function DistrictSwiper({ districts, ...props }: DistrictSwiperProps) {
   return (
     <Box mt="5" css={styles.swipeWrapper} {...props}>
-      <Box css={styles.list}>
+      <Box css={styles.list} px={mobileViewportGap}>
         {districts.map((ags) => {
           return <DistrictCard key={ags} ags={ags} flexShrink={0} />
         })}
@@ -42,17 +42,12 @@ const styles = {
     overflow-y: hidden;
     padding-bottom: ${maxScrollbarHeight}px;
 
-    > *:first-of-type {
-      margin-left: ${theme.space[mobileViewportGap]};
-    }
-
     > * {
-      margin-right: ${theme.space[5]};
+      :not(:last-of-type) {
+        margin-right: ${theme.space[5]};
+      }
       margin-bottom: ${theme.space[5]};
 
-      :last-of-type {
-        margin-right: ${theme.space[mobileViewportGap]};
-      }
       box-sizing: border-box; /* reset box-sizing again */
     }
 
