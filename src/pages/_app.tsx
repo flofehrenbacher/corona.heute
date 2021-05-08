@@ -38,7 +38,7 @@ function MainContent({ Component, pageProps }: { Component: AppComponent; pagePr
       <Header />
       <main css={styles.main}>
         {isLoading ? (
-          <Center h="100vh">
+          <Center>
             <Spinner />
           </Center>
         ) : (
