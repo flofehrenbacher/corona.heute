@@ -13,12 +13,15 @@ export default function SearchPage() {
   const [searchTerm, setSearchTerm] = React.useState('')
   const [showNoResultsFound, setShowNoResultsFound] = React.useState(true)
 
-  const searchResults =
-    searchTerm.length > 1
-      ? Object.values(districts).filter((d) =>
-          d.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()),
-        )
-      : []
+  const searchResults = React.useMemo(
+    () =>
+      searchTerm.length > 1
+        ? Object.values(districts).filter((d) =>
+            d.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()),
+          )
+        : [],
+    [districts, searchTerm],
+  )
 
   React.useEffect(() => {
     setShowNoResultsFound(searchTerm.length > 1 && searchResults.length < 1)

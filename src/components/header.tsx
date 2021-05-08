@@ -1,6 +1,6 @@
 import { ArrowBackIcon, Search2Icon } from '@chakra-ui/icons'
 import { Heading, Text } from '@chakra-ui/layout'
-import { IconButton, Spinner } from '@chakra-ui/react'
+import { IconButton } from '@chakra-ui/react'
 import theme from '@chakra-ui/theme'
 import { css } from '@emotion/react'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'

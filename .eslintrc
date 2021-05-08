@@ -6,7 +6,7 @@
     "sourceType": "module",
     "version": "detect"
   },
-  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "plugins": ["@typescript-eslint/eslint-plugin", "no-only-tests"],
   "extends": [
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",

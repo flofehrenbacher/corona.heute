@@ -1,5 +1,5 @@
 import { DragHandleIcon } from '@chakra-ui/icons'
-import { Box, BoxProps, theme } from '@chakra-ui/react'
+import { theme } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import { AGS, useCurrentRKIData } from 'hooks/use-current-rki-data'
 import { useMyDistricts } from 'hooks/use-my-districts'
@@ -23,7 +23,7 @@ export function MoveDistricts() {
           >
             {myDistricts.map((district, i) => (
               <Draggable draggableId={district} index={i} key={district}>
-                {(provided, { isDragging }) => (
+                {(provided) => (
                   <li
                     {...provided.draggableProps}
                     ref={provided.innerRef}

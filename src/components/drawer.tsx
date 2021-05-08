@@ -1,7 +1,6 @@
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
-  color,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -10,7 +9,6 @@ import {
   Flex,
   FlexProps,
   IconButton,
-  theme,
   useDisclosure,
 } from '@chakra-ui/react'
 import React from 'react'

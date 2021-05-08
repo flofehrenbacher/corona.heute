@@ -16,7 +16,7 @@ export default function HomePage() {
     if (myDistricts.length < 1) {
       push('/suche')
     }
-  }, [myDistricts.length])
+  }, [myDistricts.length, push])
 
   return (
     <Box px={mobileViewportGap}>

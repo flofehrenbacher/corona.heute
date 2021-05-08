@@ -10,7 +10,7 @@ export function DistrictList({ districts, ...props }: DistrictSwiperProps) {
   return (
     <List {...props}>
       {districts.map((ags, i) => (
-        <ListItem mt={i !== 0 ? 4 : 0}>
+        <ListItem key={ags} mt={i !== 0 ? 4 : 0}>
           <DistrictCard key={ags} ags={ags} flexShrink={0} />
         </ListItem>
       ))}
