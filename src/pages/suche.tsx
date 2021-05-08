@@ -1,6 +1,6 @@
 import { Box, Center, Heading, Text } from '@chakra-ui/layout'
 import { Input } from '@chakra-ui/react'
-import { DistrictSwiper } from 'components/district-swiper'
+import { DistrictList } from 'components/district-swiper'
 import { debounce } from 'debounce'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'
 import React from 'react'
@@ -34,10 +34,10 @@ export default function SearchPage() {
       <Head>
         <title>Corona heute - Suche</title>
       </Head>
-      <Heading p={mobileViewportGap} as="h2">
+      <Heading px={mobileViewportGap} as="h2">
         Suche
       </Heading>
-      <Box px={mobileViewportGap}>
+      <Box mt="4" px={mobileViewportGap}>
         <Input placeholder="Landkreis/Stadtkreis suchen" onChange={debounce(handleChange, 300)} />
       </Box>
       {showNoResultsFound ? (
@@ -45,7 +45,7 @@ export default function SearchPage() {
           <Text>Keine Suchergebnisse gefunden</Text>
         </Center>
       ) : (
-        <DistrictSwiper districts={searchResults.map((d) => d.ags)} />
+        <DistrictList mt="4" districts={searchResults.map((d) => d.ags)} />
       )}
     </Box>
   )

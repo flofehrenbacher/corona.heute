@@ -1,13 +1,12 @@
 import { Box, Heading } from '@chakra-ui/layout'
-import { css } from '@emotion/react'
-import { DistrictSwiper } from 'components/district-swiper'
+import { DistrictList } from 'components/district-swiper'
+import { BottomDrawer } from 'components/drawer'
+import { MoveDistricts } from 'components/move-districts'
 import { useMyDistricts } from 'hooks/use-my-districts'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { mediaQuery } from 'style/media-query'
 import { mobileViewportGap } from 'style/tokens'
-import Head from 'next/head'
-import { MoveDistricts } from 'components/move-districts'
 
 export default function HomePage() {
   const { myDistricts } = useMyDistricts()
@@ -20,20 +19,17 @@ export default function HomePage() {
   }, [myDistricts.length])
 
   return (
-    <Box>
+    <Box px={mobileViewportGap}>
       <Head>
         <title>Corona heute - Zahlen</title>
       </Head>
-      <Heading p={mobileViewportGap} as="h2" textAlign="center">
+      <Heading as="h2" textAlign="center">
         Meine Zahlen
       </Heading>
-      <DistrictSwiper districts={myDistricts} />
-      <Heading p={mobileViewportGap} as="h2" textAlign="center" fontSize="2xl">
-        Verschieben
-      </Heading>
-      <Box px={mobileViewportGap} mb="10">
+      <BottomDrawer mt="4" buttonText="Reihenfolge verändern" headline="Reihenfolge verändern">
         <MoveDistricts />
-      </Box>
+      </BottomDrawer>
+      <DistrictList mt="4" districts={myDistricts} />
     </Box>
   )
 }

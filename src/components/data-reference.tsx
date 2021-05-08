@@ -25,5 +25,6 @@ const styles = {
     color: ${theme.colors.whiteAlpha[800]};
     padding: ${theme.space[6]};
     text-align: center;
+    margin-top: ${theme.space[6]};
   `,
 }

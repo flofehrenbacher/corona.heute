@@ -14,14 +14,11 @@ import { useMyDistricts } from 'hooks/use-my-districts'
 import React from 'react'
 import { WeekChart } from './week-chart'
 
-export const districtCardWidth = 300
-export const districtCardHeight = districtCardWidth
-
 interface DistrictCardProps extends FlexProps {
   ags: string
 }
 export function DistrictCard({ ags, ...props }: DistrictCardProps) {
-  const { districts, lastUpdate } = useCurrentRKIData()
+  const { districts } = useCurrentRKIData()
   const { myDistricts, addDistrict, removeDistrict } = useMyDistricts()
 
   const district = districts[ags]
@@ -41,15 +38,7 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
 
   if (!district) return <Box>Unbekannter Allgemeiner Gemeindeschlüssel: {ags}</Box>
   return (
-    <Flex
-      justify="space-between"
-      css={styles.container}
-      w={districtCardWidth}
-      h={districtCardHeight}
-      align="start"
-      p="4"
-      {...props}
-    >
+    <Flex justify="space-between" css={styles.container} align="start" p="4" {...props}>
       <Box w="90%">
         <Text fontSize="larger">{district.county}</Text>
         {view === 'overview' ? (

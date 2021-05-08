@@ -50,6 +50,8 @@ const styles = {
     border-radius: 9px;
     box-shadow: 0 0 0 10px ${isDraggingOver ? theme.colors.gray[200] : 'transparent'};
     list-style-type: none;
+    margin-top: ${theme.space[4]};
+    margin-bottom: ${theme.space[4]};
   `,
   draggableDistrict: css`
     padding: ${theme.space[4]};
