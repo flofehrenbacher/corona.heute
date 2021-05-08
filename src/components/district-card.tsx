@@ -13,6 +13,7 @@ import { useCurrentRKIData } from 'hooks/use-current-rki-data'
 import { useMyDistricts } from 'hooks/use-my-districts'
 import React from 'react'
 import { WeekChart } from './week-chart'
+import { last, head } from 'ramda'
 
 interface DistrictCardProps extends FlexProps {
   ags: string
@@ -28,13 +29,11 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
     setView((prev) => (prev === 'chart' ? 'overview' : 'chart'))
   }
 
-  const weekIncidenceLastWeek =
-    district.weekIncidenceHistory && district.weekIncidenceHistory.length > 0
-      ? district.weekIncidenceHistory[0]
-      : undefined
+  const weekIncidenceLastWeek = head(district.weekIncidenceHistory ?? [])
+  const casesLastWeek = head(district.casesHistory ?? [])
 
-  const casesLastWeek =
-    district.casesHistory && district.casesHistory.length > 0 ? district.casesHistory[0] : undefined
+  const weekIncidenceCurrent = last(district.weekIncidenceHistory ?? [])
+  const casesCurrent = last(district.casesHistory ?? [])
 
   if (!district) return <Box>Unbekannter Allgemeiner Gemeindeschlüssel: {ags}</Box>
   return (
@@ -47,7 +46,7 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
             <Text mb="2">Einwohner: {district.population}</Text>
             <CompareLastWeek
               title="7-Tage-Inzidenz"
-              current={district.weekIncidence}
+              current={weekIncidenceCurrent?.weekIncidence ?? NaN}
               lastWeek={
                 weekIncidenceLastWeek
                   ? { value: weekIncidenceLastWeek.weekIncidence, date: weekIncidenceLastWeek.date }
@@ -57,7 +56,7 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
             <CompareLastWeek
               mt="1"
               title="Neue Fälle"
-              current={district.delta.cases}
+              current={casesCurrent?.cases ?? NaN}
               lastWeek={
                 casesLastWeek ? { value: casesLastWeek.cases, date: casesLastWeek.date } : undefined
               }
