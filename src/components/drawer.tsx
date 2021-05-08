@@ -26,7 +26,8 @@ export function BottomDrawer({ children, buttonText, headline, ...props }: Botto
       <Button colorScheme="gray" size="sm" onClick={onOpen}>
         {buttonText}
       </Button>
-      <Drawer placement="bottom" onClose={onClose} isOpen={isOpen}>
+      {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
+      <Drawer autoFocus={false} placement="bottom" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         {/* transform of 0 breaks beautiful dnd... */}
         <DrawerContent css={{ transform: 'none !important' }}>
