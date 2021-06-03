@@ -22,8 +22,8 @@ export function WeekChart({ width, height, casesHistory, weekIncidenceHistory }:
   const barWidthWeekIncidence = Math.floor(width / casesHistory.length)
   const barWidthCases = Math.floor(width / weekIncidenceHistory.length)
 
-  const [{ lineColor, lineValue }] = React.useState(() =>
-    getInterestingLine(Math.max(...weekIncidenceHistory.map((d) => d.weekIncidence))),
+  const { lineColor, lineValue } = getInterestingLine(
+    Math.max(...weekIncidenceHistory.map((d) => d.weekIncidence)),
   )
 
   return (
@@ -56,9 +56,9 @@ export function WeekChart({ width, height, casesHistory, weekIncidenceHistory }:
         <line
           x1={0}
           x2={width}
-          y1={yScaleWeekIncidence(100)}
-          y2={yScaleWeekIncidence(100)}
-          stroke={theme.colors.red[600]}
+          y1={yScaleWeekIncidence(lineValue)}
+          y2={yScaleWeekIncidence(lineValue)}
+          stroke={lineColor}
           strokeWidth={2}
         />
       </svg>
