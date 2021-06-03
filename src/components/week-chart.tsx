@@ -22,11 +22,17 @@ export function WeekChart({ width, height, casesHistory, weekIncidenceHistory }:
   const barWidthWeekIncidence = Math.floor(width / casesHistory.length)
   const barWidthCases = Math.floor(width / weekIncidenceHistory.length)
 
+  const [{ lineColor, lineValue }] = React.useState(() =>
+    getInterestingLine(Math.max(...weekIncidenceHistory.map((d) => d.weekIncidence))),
+  )
+
   return (
     <div>
-      <Heading fontSize="small">Verlauf (inklusive heute)</Heading>
+      <Heading fontSize="small">Verlauf</Heading>
       <Heading fontSize="smaller" my={2}>
-        7-Tage-Inzidenz (rot = 100)
+        7-Tage-Inzidenz
+        <br />
+        (rot = 100, orange = 50, gelb = 35, grün = 10)
       </Heading>
       <svg width={width} height={height}>
         {weekIncidenceHistory.map((d, i) => (
@@ -79,4 +85,17 @@ export function WeekChart({ width, height, casesHistory, weekIncidenceHistory }:
       </svg>
     </div>
   )
+}
+
+function getInterestingLine(maxInWeek: number): { lineValue: number; lineColor: string } {
+  if (maxInWeek < 35) {
+    return { lineValue: 10, lineColor: theme.colors.green[500] }
+  }
+  if (maxInWeek < 50) {
+    return { lineValue: 35, lineColor: theme.colors.yellow[300] }
+  }
+  if (maxInWeek < 100) {
+    return { lineValue: 50, lineColor: theme.colors.orange[500] }
+  }
+  return { lineValue: 100, lineColor: theme.colors.red[500] }
 }
