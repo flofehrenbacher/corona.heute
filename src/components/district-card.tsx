@@ -46,7 +46,11 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
             <Text mb="2">Einwohner: {district.population}</Text>
             <CompareLastWeek
               title="7-Tage-Inzidenz"
-              current={weekIncidenceCurrent?.weekIncidence ?? NaN}
+              current={
+                weekIncidenceCurrent
+                  ? { value: weekIncidenceCurrent.weekIncidence, date: weekIncidenceCurrent.date }
+                  : undefined
+              }
               lastWeek={
                 weekIncidenceLastWeek
                   ? { value: weekIncidenceLastWeek.weekIncidence, date: weekIncidenceLastWeek.date }
@@ -56,7 +60,9 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
             <CompareLastWeek
               mt="1"
               title="Neue Fälle"
-              current={casesCurrent?.cases ?? NaN}
+              current={
+                casesCurrent ? { value: casesCurrent.cases, date: casesCurrent.date } : undefined
+              }
               lastWeek={
                 casesLastWeek ? { value: casesLastWeek.cases, date: casesLastWeek.date } : undefined
               }
@@ -107,11 +113,11 @@ const styles = {
 
 interface CompareLastWeekProps extends TextProps {
   title: string
-  current: number
+  current?: { value: number; date: string }
   lastWeek?: { value: number; date: string }
 }
 export function CompareLastWeek({ current, lastWeek, title, ...props }: CompareLastWeekProps) {
-  const sinceLastWeek = lastWeek ? current - lastWeek.value : NaN
+  const sinceLastWeek = lastWeek && current ? current.value - lastWeek.value : NaN
 
   const CompareLastWeek = lastWeek ? (
     <>
@@ -131,7 +137,7 @@ export function CompareLastWeek({ current, lastWeek, title, ...props }: CompareL
 
   return (
     <Text {...props}>
-      {title}: {current}
+      {title}: {current?.value} ({current ? new Date(current.date).toLocaleDateString('de') : ''})
       {CompareLastWeek}
     </Text>
   )
