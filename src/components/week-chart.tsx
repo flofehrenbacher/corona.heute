@@ -11,6 +11,12 @@ interface Props {
 }
 
 export function WeekChart({ width, height, casesHistory, weekIncidenceHistory }: Props) {
+  const today = new Date()
+  const [month, day, year] = [today.getMonth(), today.getDate(), today.getFullYear()]
+  const lastWeekDates = Array.from({ length: 7 })
+    .map((_, i) => new Date(year, month, day - (i + 1)))
+    .reverse()
+
   const yScaleWeekIncidence = scaleLinear()
     .domain([0, Math.max(...weekIncidenceHistory.map((h) => h.weekIncidence))])
     .rangeRound([height, 0])
@@ -19,8 +25,7 @@ export function WeekChart({ width, height, casesHistory, weekIncidenceHistory }:
     .domain([0, Math.max(...casesHistory.map((h) => h.cases))])
     .rangeRound([height, 0])
 
-  const barWidthWeekIncidence = Math.floor(width / casesHistory.length)
-  const barWidthCases = Math.floor(width / weekIncidenceHistory.length)
+  const barWidth = Math.floor(width / lastWeekDates.length)
 
   const { lineColor, lineValue } = getInterestingLine(
     Math.max(...weekIncidenceHistory.map((d) => d.weekIncidence)),
@@ -35,21 +40,23 @@ export function WeekChart({ width, height, casesHistory, weekIncidenceHistory }:
         (rot = 100, orange = 50, gelb = 35, grün = 10)
       </Heading>
       <svg width={width} height={height}>
-        {weekIncidenceHistory.map((d, i) => (
+        {lastWeekDates.map((d, i) => (
           <Tooltip
-            key={d.date}
+            key={d.toISOString()}
             placement="top"
-            label={`7-Tage-Inzidenz am ${new Date(d.date).toLocaleDateString('de')}: ${
-              d.weekIncidence
-            }`}
+            label={`7-Tage-Inzidenz am ${new Date(d).toLocaleDateString(
+              'de',
+            )}: ${findWeekIncidenceOfDate(weekIncidenceHistory, d)}`}
           >
             <rect
               fill={theme.colors.blue[700]}
               key={i}
-              x={i * barWidthWeekIncidence}
-              y={yScaleWeekIncidence(d.weekIncidence)}
-              width={barWidthWeekIncidence - 1}
-              height={height - yScaleWeekIncidence(d.weekIncidence)}
+              x={i * barWidth}
+              y={yScaleWeekIncidence(findWeekIncidenceOfDate(weekIncidenceHistory, d))}
+              width={barWidth - 2}
+              height={
+                height - yScaleWeekIncidence(findWeekIncidenceOfDate(weekIncidenceHistory, d))
+              }
             />
           </Tooltip>
         ))}
@@ -75,9 +82,9 @@ export function WeekChart({ width, height, casesHistory, weekIncidenceHistory }:
             <rect
               fill={theme.colors.purple[700]}
               key={i}
-              x={i * barWidthCases}
+              x={i * barWidth}
               y={yScaleCases(d.cases)}
-              width={barWidthCases - 1}
+              width={barWidth - 2}
               height={height - yScaleCases(d.cases)}
             />
           </Tooltip>
@@ -98,4 +105,14 @@ function getInterestingLine(maxInWeek: number): { lineValue: number; lineColor: 
     return { lineValue: 50, lineColor: theme.colors.orange[500] }
   }
   return { lineValue: 100, lineColor: theme.colors.red[500] }
+}
+
+function findWeekIncidenceOfDate(
+  weekIncidenceHistory: NonNullable<HistoryDistrict['weekIncidenceHistory']>,
+  dateOfInterest: Date,
+) {
+  return (
+    weekIncidenceHistory.find(({ date }) => new Date(date).getDate() === dateOfInterest.getDate())
+      ?.weekIncidence ?? 0
+  )
 }
