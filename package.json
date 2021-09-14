@@ -34,6 +34,7 @@
   "devDependencies": {
     "@emotion/babel-plugin": "11.3.0",
     "@emotion/babel-preset-css-prop": "11.2.0",
+    "@next/eslint-plugin-next": "11.1.2",
     "@testing-library/react": "12.0.0",
     "@next/eslint-plugin-next": "^11.1.2",
     "@types/d3-scale": "3.3.2",
