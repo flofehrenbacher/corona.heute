@@ -2,7 +2,6 @@ import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { Link } from '@chakra-ui/layout'
 import { theme } from '@chakra-ui/react'
 import { css } from '@emotion/react'
-import React from 'react'
 
 export function DataReference() {
   return (
