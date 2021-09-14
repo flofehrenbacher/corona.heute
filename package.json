@@ -32,9 +32,9 @@
     "use-local-storage-state": "10.0.0"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "^11.3.0",
+    "@emotion/babel-plugin": "11.3.0",
     "@emotion/babel-preset-css-prop": "11.2.0",
-    "@next/eslint-plugin-next": "^11.1.2",
+    "@next/eslint-plugin-next": "11.1.2",
     "@testing-library/react": "11.2.7",
     "@types/d3-scale": "3.3.2",
     "@types/debounce": "1.2.0",
