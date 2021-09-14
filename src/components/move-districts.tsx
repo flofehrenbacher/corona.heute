@@ -4,7 +4,7 @@ import { css } from '@emotion/react'
 import { AGS, useCurrentRKIData } from 'hooks/use-current-rki-data'
 import { useMyDistricts } from 'hooks/use-my-districts'
 import { move } from 'ramda'
-import React from 'react'
+
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 import { UpdateState } from 'use-local-storage-state/src/useLocalStorageStateBase'
 
@@ -59,22 +59,24 @@ const styles = {
 }
 
 const dragEvents = {
-  onDragEnd: ({
-    myDistricts,
-    setMyDistricts,
-  }: {
-    myDistricts: AGS[]
-    setMyDistricts: UpdateState<string[]>
-  }) => ({ destination, source }: DropResult) => {
-    if (
-      !destination ||
-      (destination.droppableId === source.droppableId && destination.index === source.index)
-    ) {
-      return
-    }
+  onDragEnd:
+    ({
+      myDistricts,
+      setMyDistricts,
+    }: {
+      myDistricts: AGS[]
+      setMyDistricts: UpdateState<string[]>
+    }) =>
+    ({ destination, source }: DropResult) => {
+      if (
+        !destination ||
+        (destination.droppableId === source.droppableId && destination.index === source.index)
+      ) {
+        return
+      }
 
-    const newOrderedDistricts = move(source.index, destination.index, myDistricts)
+      const newOrderedDistricts = move(source.index, destination.index, myDistricts)
 
-    setMyDistricts(newOrderedDistricts)
-  },
+      setMyDistricts(newOrderedDistricts)
+    },
 }

@@ -5,14 +5,14 @@ import { MoveDistricts } from 'components/move-districts'
 import { useMyDistricts } from 'hooks/use-my-districts'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { useEffect } from 'react'
 import { mobileViewportGap } from 'style/tokens'
 
 export default function HomePage() {
   const { myDistricts } = useMyDistricts()
   const { push } = useRouter()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (myDistricts.length < 1) {
       push('/suche')
     }

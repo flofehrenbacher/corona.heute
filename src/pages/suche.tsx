@@ -3,17 +3,18 @@ import { Input } from '@chakra-ui/react'
 import { DistrictList } from 'components/district-swiper'
 import { debounce } from 'debounce'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'
-import React from 'react'
+
 import { mobileViewportGap } from 'style/tokens'
 import Head from 'next/head'
+import { useState, useMemo, useEffect, ChangeEvent } from 'react'
 
 export default function SearchPage() {
   const { districts } = useCurrentRKIData()
 
-  const [searchTerm, setSearchTerm] = React.useState('')
-  const [showNoResultsFound, setShowNoResultsFound] = React.useState(true)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [showNoResultsFound, setShowNoResultsFound] = useState(true)
 
-  const searchResults = React.useMemo(
+  const searchResults = useMemo(
     () =>
       searchTerm.length > 1
         ? Object.values(districts).filter((d) =>
@@ -23,11 +24,11 @@ export default function SearchPage() {
     [districts, searchTerm],
   )
 
-  React.useEffect(() => {
+  useEffect(() => {
     setShowNoResultsFound(searchTerm.length > 1 && searchResults.length < 1)
   }, [searchTerm, searchResults])
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value.trim()
     setSearchTerm(value)
   }

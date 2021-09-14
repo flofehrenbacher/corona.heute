@@ -6,7 +6,6 @@ import { css } from '@emotion/react'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 export function Header(props: unknown) {
   const { lastUpdate } = useCurrentRKIData()
