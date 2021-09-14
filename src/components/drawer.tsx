@@ -11,10 +11,10 @@ import {
   IconButton,
   useDisclosure,
 } from '@chakra-ui/react'
-import React from 'react'
+import { ReactNode } from 'react'
 
 interface BottomDrawerProps extends FlexProps {
-  children: React.ReactNode
+  children: ReactNode
   buttonText: string
   headline: string
 }

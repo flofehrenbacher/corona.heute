@@ -3,11 +3,10 @@ import { css } from '@emotion/react'
 import { DataReference } from 'components/data-reference'
 import { Header } from 'components/header'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'
-import { AppComponent, AppProps } from 'next/dist/next-server/lib/router/router'
-import * as React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { mediaQueryValues } from 'style/media-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { AppComponent, AppProps } from 'next/dist/shared/lib/router/router'
 
 const queryClient = new QueryClient({
   defaultOptions: {
