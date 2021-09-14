@@ -1,7 +1,6 @@
 import { Heading, theme, Tooltip } from '@chakra-ui/react'
 import { scaleLinear } from 'd3-scale'
 import { HistoryDistrict } from 'hooks/use-current-rki-data'
-import * as React from 'react'
 
 interface Props {
   casesHistory: NonNullable<HistoryDistrict['casesHistory']>

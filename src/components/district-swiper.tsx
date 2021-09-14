@@ -1,6 +1,6 @@
 import { List, ListItem, ListProps } from '@chakra-ui/react'
 import { AGS } from 'hooks/use-current-rki-data'
-import React from 'react'
+
 import { DistrictCard } from './district-card'
 
 interface DistrictSwiperProps extends ListProps {
