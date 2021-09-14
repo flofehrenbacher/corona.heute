@@ -11,9 +11,9 @@ import { Flex, IconButton, theme } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'
 import { useMyDistricts } from 'hooks/use-my-districts'
-import React from 'react'
 import { WeekChart } from './week-chart'
 import { last, head } from 'ramda'
+import { useState } from 'react'
 
 interface DistrictCardProps extends FlexProps {
   ags: string
@@ -24,7 +24,7 @@ export function DistrictCard({ ags, ...props }: DistrictCardProps) {
 
   const district = districts[ags]
 
-  const [view, setView] = React.useState<'chart' | 'overview'>('overview')
+  const [view, setView] = useState<'chart' | 'overview'>('overview')
   function toggleView() {
     setView((prev) => (prev === 'chart' ? 'overview' : 'chart'))
   }

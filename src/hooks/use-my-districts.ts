@@ -1,5 +1,6 @@
 import { useToast } from '@chakra-ui/toast'
-import React from 'react'
+import { useCallback } from 'react'
+
 import { createLocalStorageStateHook } from 'use-local-storage-state'
 import { AGS } from './use-current-rki-data'
 
@@ -10,7 +11,7 @@ export function useMyDistricts() {
   const [myDistricts, setMyDistricts] = useDistricts()
   const toast = useToast()
 
-  const addDistrict = React.useCallback(
+  const addDistrict = useCallback(
     (district: AGS) => {
       setMyDistricts((prev) => [district, ...(prev ?? [])])
       toast({
@@ -23,7 +24,7 @@ export function useMyDistricts() {
     [setMyDistricts, toast],
   )
 
-  const removeDistrict = React.useCallback(
+  const removeDistrict = useCallback(
     (district: AGS) => {
       const confirmation = confirm('Wirklich entfernen?')
 

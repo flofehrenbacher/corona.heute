@@ -6,7 +6,6 @@ import { css } from '@emotion/react'
 import { useCurrentRKIData } from 'hooks/use-current-rki-data'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 export function Header(props: unknown) {
   const { lastUpdate } = useCurrentRKIData()
@@ -15,14 +14,14 @@ export function Header(props: unknown) {
   return (
     <>
       <header css={styles.header} {...props}>
-        <Link href="/">
+        <Link href="/" passHref>
           <Heading as="h1" color="whiteAlpha.800">
             Aktuelle Coronazahlen
           </Heading>
         </Link>
 
         {pathname.includes('suche') ? (
-          <Link href="/">
+          <Link href="/" passHref>
             <IconButton
               as="a"
               colorScheme="blue"
@@ -31,7 +30,7 @@ export function Header(props: unknown) {
             />
           </Link>
         ) : (
-          <Link href="/suche">
+          <Link href="/suche" passHref>
             <IconButton
               as="a"
               colorScheme="blue"
