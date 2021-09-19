@@ -1,7 +1,7 @@
 {
-  "name": "nextjs-typescript-chakraui-emotion-template",
+  "name": "corona.heute",
   "version": "0.0.0",
-  "description": "This repository is used as a playground with current JS technologies like React, TypeScript, etc. The example application provides information for countries all over the world via [http://restcountries.eu/](http://restcountries.eu/)",
+  "description": "Web-App zur Darstellung aktueller Zahlen zur Corona-Pandemie in Deutschland",
   "scripts": {
     "start": "next start",
     "dev": "next",
