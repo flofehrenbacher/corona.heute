@@ -36,7 +36,7 @@
     "@emotion/babel-preset-css-prop": "11.2.0",
     "@types/d3-scale": "4.0.1",
     "@next/eslint-plugin-next": "11.1.2",
-    "@testing-library/react": "12.1.1",
+    "@testing-library/react": "12.1.2",
     "@types/debounce": "1.2.1",
     "@types/jest": "27.0.2",
     "@types/ramda": "0.27.44",
