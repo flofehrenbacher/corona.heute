@@ -40,7 +40,7 @@
     "@types/debounce": "1.2.1",
     "@types/jest": "27.0.3",
     "@types/node": "16.11.6",
-    "@types/ramda": "0.27.46",
+    "@types/ramda": "0.27.50",
     "@types/node": "16.11.9",
     "@types/react": "17.0.35",
     "@types/react-beautiful-dnd": "13.1.2",
