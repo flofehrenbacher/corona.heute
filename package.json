@@ -12,8 +12,8 @@
     "update-dev-data": "NODE_PATH=./src ts-node -T --project tsconfig.server.json src/script.ts"
   },
   "dependencies": {
-    "@chakra-ui/icons": "1.1.5",
-    "@chakra-ui/react": "1.8.3",
+    "@chakra-ui/icons": "1.1.7",
+    "@chakra-ui/react": "1.8.5",
     "@emotion/react": "11.8.1",
     "@emotion/styled": "11.8.1",
     "axios": "0.24.0",
