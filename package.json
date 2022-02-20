@@ -29,7 +29,7 @@
     "react-d3-components": "0.9.1",
     "react-dom": "17.0.2",
     "react-query": "3.34.16",
-    "use-local-storage-state": "13.0.0"
+    "use-local-storage-state": "15.0.0"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "11.7.2",
