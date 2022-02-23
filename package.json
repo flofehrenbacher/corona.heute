@@ -19,7 +19,7 @@
     "axios": "0.24.0",
     "d3-scale": "4.0.2",
     "debounce": "1.2.1",
-    "framer-motion": "6.2.7",
+    "framer-motion": "6.2.8",
     "next": "12.1.0",
     "next-pwa": "5.4.4",
     "ramda": "0.27.1",
