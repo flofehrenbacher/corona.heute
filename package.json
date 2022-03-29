@@ -23,11 +23,11 @@
     "next": "12.1.2",
     "next-pwa": "5.4.6",
     "ramda": "0.28.0",
-    "react": "17.0.2",
+    "react": "18.0.0",
     "react-beautiful-dnd": "13.1.0",
     "react-charts": "2.1.0",
     "react-d3-components": "0.9.1",
-    "react-dom": "17.0.2",
+    "react-dom": "18.0.0",
     "react-query": "3.34.19",
     "use-local-storage-state": "17.0.0"
   },
