@@ -32,7 +32,7 @@
     "use-local-storage-state": "17.0.1"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "11.7.2",
+    "@emotion/babel-plugin": "11.9.2",
     "@emotion/babel-preset-css-prop": "11.2.0",
     "@types/d3-scale": "4.0.2",
     "@next/eslint-plugin-next": "12.1.4",
